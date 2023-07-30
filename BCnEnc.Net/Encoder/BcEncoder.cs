@@ -2127,6 +2127,9 @@ namespace BCnEncoder.Encoder
 				case CompressionFormat.Bc5:
 					return new Bc5BlockEncoder(InputOptions.Bc5Component1, InputOptions.Bc5Component2);
 
+				case CompressionFormat.Bc5SW:
+					return new Bc5BlockEncoder(InputOptions.Bc5Component2, InputOptions.Bc5Component1, true);
+
 				case CompressionFormat.Bc7:
 					return new Bc7Encoder();
 

@@ -46,10 +46,14 @@ namespace BCnEncoder.Shared
         /// BC5 dual-channel encoding. Only red and green channels are encoded.
         /// </summary>
         Bc5,
-        /// <summary>
-        /// BC6H / BPTC unsigned float encoding. Can compress HDR textures without alpha. Does not support negative values.
-        /// </summary>
-        Bc6U,
+		/// <summary>
+		/// BC5 dual-channel encoding. Only red and green channels are encoded.
+		/// </summary>
+		Bc5SW,
+		/// <summary>
+		/// BC6H / BPTC unsigned float encoding. Can compress HDR textures without alpha. Does not support negative values.
+		/// </summary>
+		Bc6U,
 		/// <summary>
 		/// BC6H / BPTC signed float encoding. Can compress HDR textures without alpha. Supports negative values.
 		/// </summary>

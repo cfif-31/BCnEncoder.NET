@@ -1600,6 +1600,9 @@ namespace BCnEncoder.Decoder
 				case CompressionFormat.Bc5:
 					return new Bc5Decoder(OutputOptions.Bc5Component1, OutputOptions.Bc5Component2);
 
+				case CompressionFormat.Bc5SW:
+					return new Bc5Decoder(OutputOptions.Bc5Component2, OutputOptions.Bc5Component1);
+
 				case CompressionFormat.Bc7:
 					return new Bc7Decoder();
 
@@ -1753,6 +1756,7 @@ namespace BCnEncoder.Decoder
 					return Unsafe.SizeOf<Bc4Block>();
 
 				case CompressionFormat.Bc5:
+				case CompressionFormat.Bc5SW:
 					return Unsafe.SizeOf<Bc5Block>();
 
 				case CompressionFormat.Bc6S:
@@ -1896,6 +1900,9 @@ namespace BCnEncoder.Decoder
 				case DxgiFormat.DxgiFormatBc5Snorm:
 				case DxgiFormat.DxgiFormatBc5Typeless:
 					return CompressionFormat.Bc5;
+
+				case DxgiFormat.DxgiFormatBc5SA2XYnorm:
+					return CompressionFormat.Bc5SW;
 
 				case DxgiFormat.DxgiFormatBc6HTypeless:
 				case DxgiFormat.DxgiFormatBc6HUf16:

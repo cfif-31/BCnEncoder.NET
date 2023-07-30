@@ -296,6 +296,15 @@ namespace BCnEncoder.Shared.ImageFiles
 							dwFourCc = DdsPixelFormat.Ati2
 						};
 						break;
+					case DxgiFormat.DxgiFormatBc5SA2XYnorm:
+						header.ddsPixelFormat = new DdsPixelFormat
+						{
+							dwSize = 32,
+							dwFlags = PixelFormatFlags.DdpfFourcc,
+							dwFourCc = DdsPixelFormat.Ati2,
+							dwRgbBitCount = DdsPixelFormat.A2XY,
+						};
+						break;
 
 					case DxgiFormat.DxgiFormatAtcExt:
 						header.ddsPixelFormat = new DdsPixelFormat
@@ -433,6 +442,9 @@ namespace BCnEncoder.Shared.ImageFiles
 		public static readonly uint Bc5S = MakeFourCc('B', 'C', '5', 'S');
 		public static readonly uint Bc5U = MakeFourCc('B', 'C', '5', 'U');
 
+		//ATI2A2XY format
+		public static readonly uint A2XY = MakeFourCc('A', '2', 'X', 'Y');
+
 		private static uint MakeFourCc(char c0, char c1, char c2, char c3)
 		{
 			uint result = c0;
@@ -461,7 +473,8 @@ namespace BCnEncoder.Shared.ImageFiles
 					if (dwFourCc == Dxt2 || dwFourCc == Dxt3) return DxgiFormat.DxgiFormatBc2Unorm;
 					if (dwFourCc == Dxt4 || dwFourCc == Dxt5) return DxgiFormat.DxgiFormatBc3Unorm;
 					if (dwFourCc == Ati1 || dwFourCc == Bc4S || dwFourCc == Bc4U) return DxgiFormat.DxgiFormatBc4Unorm;
-					if (dwFourCc == Ati2 || dwFourCc == Bc5S || dwFourCc == Bc5U) return DxgiFormat.DxgiFormatBc5Unorm;
+					if (dwFourCc == Ati2 && dwRgbBitCount == A2XY ) return DxgiFormat.DxgiFormatBc5SA2XYnorm;//ATI2A2XY
+					if (dwFourCc == Ati2  || dwFourCc == Bc5U || dwFourCc == Bc5S) return DxgiFormat.DxgiFormatBc5Unorm;
 					if (dwFourCc == Atc) return DxgiFormat.DxgiFormatAtcExt;
 					if (dwFourCc == Atci) return DxgiFormat.DxgiFormatAtcExplicitAlphaExt;
 					if (dwFourCc == Atca) return DxgiFormat.DxgiFormatAtcInterpolatedAlphaExt;
@@ -797,6 +810,7 @@ namespace BCnEncoder.Shared.ImageFiles
 		DxgiFormatBc5Typeless,
 		DxgiFormatBc5Unorm,
 		DxgiFormatBc5Snorm,
+		DxgiFormatBc5SA2XYnorm,
 		DxgiFormatB5G6R5Unorm,
 		DxgiFormatB5G5R5A1Unorm,
 		DxgiFormatB8G8R8A8Unorm,
@@ -1015,6 +1029,8 @@ namespace BCnEncoder.Shared.ImageFiles
 					return 16;
 				case DxgiFormat.DxgiFormatBc5Snorm:
 					return 16;
+				case DxgiFormat.DxgiFormatBc5SA2XYnorm:
+					return 16;
 				case DxgiFormat.DxgiFormatB5G6R5Unorm:
 					return 2;
 				case DxgiFormat.DxgiFormatB5G5R5A1Unorm:
@@ -1057,6 +1073,40 @@ namespace BCnEncoder.Shared.ImageFiles
 					return 16;
 				case DxgiFormat.DxgiFormatAtcInterpolatedAlphaExt:
 					return 16;
+				case DxgiFormat.DxgiFormatAyuv:
+					break;
+				case DxgiFormat.DxgiFormatY410:
+					break;
+				case DxgiFormat.DxgiFormatY416:
+					break;
+				case DxgiFormat.DxgiFormatNv12:
+					break;
+				case DxgiFormat.DxgiFormatP010:
+					break;
+				case DxgiFormat.DxgiFormatP016:
+					break;
+				case DxgiFormat.DxgiFormat420Opaque:
+					break;
+				case DxgiFormat.DxgiFormatYuy2:
+					break;
+				case DxgiFormat.DxgiFormatY210:
+					break;
+				case DxgiFormat.DxgiFormatY216:
+					break;
+				case DxgiFormat.DxgiFormatNv11:
+					break;
+				case DxgiFormat.DxgiFormatAi44:
+					break;
+				case DxgiFormat.DxgiFormatIa44:
+					break;
+				case DxgiFormat.DxgiFormatP208:
+					break;
+				case DxgiFormat.DxgiFormatV208:
+					break;
+				case DxgiFormat.DxgiFormatV408:
+					break;
+				case DxgiFormat.DxgiFormatForceUint:
+					break;
 			}
 			return 4;
 		}
@@ -1080,6 +1130,7 @@ namespace BCnEncoder.Shared.ImageFiles
 				case DxgiFormat.DxgiFormatBc5Typeless:
 				case DxgiFormat.DxgiFormatBc5Unorm:
 				case DxgiFormat.DxgiFormatBc5Snorm:
+				case DxgiFormat.DxgiFormatBc5SA2XYnorm:
 				case DxgiFormat.DxgiFormatBc6HTypeless:
 				case DxgiFormat.DxgiFormatBc6HUf16:
 				case DxgiFormat.DxgiFormatBc6HSf16:

@@ -7,11 +7,13 @@ namespace BCnEncoder.Encoder
 	{
 		private readonly Bc4ComponentBlockEncoder redBlockEncoder;
 		private readonly Bc4ComponentBlockEncoder greenBlockEncoder;
+		private readonly bool IsSwapFormat = false;
 
-		public Bc5BlockEncoder(ColorComponent component1, ColorComponent component2)
+		public Bc5BlockEncoder(ColorComponent component1, ColorComponent component2, bool isSwapFormat = false)
 		{
 			redBlockEncoder = new Bc4ComponentBlockEncoder(component1);
 			greenBlockEncoder = new Bc4ComponentBlockEncoder(component2);
+			IsSwapFormat = isSwapFormat;
 		}
 
 		public override Bc5Block EncodeBlock(RawBlock4X4Rgba32 block, CompressionQuality quality)
@@ -35,6 +37,8 @@ namespace BCnEncoder.Encoder
 
 		public override DxgiFormat GetDxgiFormat()
 		{
+			if (IsSwapFormat)
+				return DxgiFormat.DxgiFormatBc5SA2XYnorm;
 			return DxgiFormat.DxgiFormatBc5Unorm;
 		}
 	}
